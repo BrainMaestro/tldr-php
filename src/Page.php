@@ -35,14 +35,18 @@ final class Page
     private static function format(string $content): string
     {
         $rules = [
+            // delete title of page that starts with #
             '/# (.+)\n\n/' => '',
+            // remove '>' from short description
             '/> (.+)/' => '$1',
+            // remove extra newline
             '/:\n/' => ':',
+            // color example command usage description
             '/(- .+)/' => '<info>$1</info>',
-            '/`(.+)`/' => '  $1',
-            '/(\n {2}\w++)/' => '<fg=cyan>$1</>',
-            '/( -+\S+)/' => '<fg=yellow>$1</>',
-            '/{{(.+?)}}/' => '</>$1',
+            // remove braces
+            '/{{(.+?)}}/' => '$1',
+            // color all text in example command usage
+            '/`(.+)`/' => '<fg=cyan>  $1</>',
         ];
 
         foreach ($rules as $pattern => $replacement) {

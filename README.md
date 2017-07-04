@@ -11,7 +11,7 @@ composer global install brainmaestro/tldr
 ```
 
 ## Notes
-- Tldr pages are cache in `$HOME/.tldr`.
+- Tldr pages are cached in `$HOME/.tldr`.
 
 ## License
 MIT © Ezinwa Okpoechi
