@@ -2,6 +2,7 @@
 
 namespace BrainMaestro\Tldr\Commands;
 
+use BrainMaestro\Tldr\Page;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,10 +17,27 @@ class Tldr extends Command
             ->setName('tldr')
             ->setDescription('Displays simplified and community-driven man pages')
             ->setHelp('This command allows you to show simple man pages for commands')
+            ->addArgument(
+                'page',
+                InputArgument::REQUIRED,
+                'Requested tldr page'
+            )
+            ->addOption(
+                'platform',
+                'p',
+                InputOption::VALUE_REQUIRED,
+                'Platform of the command',
+                'common'
+            )
         ;
     }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('Hello world');
+        $platform = $input->getOption('platform');
+        $page = $input->getArgument('page');
+
+        $pageContent = Page::get($platform, $page);
+        $output->writeln($pageContent);
     }
 }
