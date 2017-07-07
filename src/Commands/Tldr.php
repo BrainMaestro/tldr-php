@@ -58,6 +58,11 @@ class Tldr extends Command
             return;
         }
 
+        if (! $page) {
+            $output->writeln("<error>You must provide a command</error>");
+            return 1;
+        }
+
         $pageContent = Page::get($platform, $page);
 
         if (! $pageContent) {

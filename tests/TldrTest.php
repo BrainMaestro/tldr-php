@@ -42,6 +42,18 @@ class TldrTest extends TestCase
     /**
      * @test
      */
+    public function it_fails_with_an_error_if_no_page_is_specified()
+    {
+        $this->commandTester->execute([]);
+
+        $this->assertNotEmpty($this->commandTester->getDisplay());
+        $this->assertEquals('You must provide a command', trim($this->commandTester->getDisplay()));
+        $this->assertEquals(1, $this->commandTester->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
     public function it_clears_the_entire_local_cache()
     {
         Page::get('common', 'tar');
