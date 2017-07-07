@@ -35,6 +35,12 @@ class Tldr extends Command
                 InputOption::VALUE_NONE,
                 'Clear the entire local cache'
             )
+            ->addOption(
+                'update',
+                'u',
+                InputOption::VALUE_NONE,
+                'Download latest version of pages in your local cache'
+            )
         ;
     }
 
@@ -45,6 +51,11 @@ class Tldr extends Command
 
         if ($input->getOption('clear-cache')) {
             return Page::clearCache();
+        }
+
+        if ($input->getOption('update')) {
+            Page::update();
+            return;
         }
 
         $pageContent = Page::get($platform, $page);

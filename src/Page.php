@@ -15,7 +15,7 @@ final class Page
      */
     public static function get(string $platform, string $page): string
     {
-        $cacheDir = "{$_SERVER['HOME']}/.tldr/{$platform}";
+        $cacheDir = self::getCacheDir() . '/' . $platform;
         $pageFile = "{$cacheDir}/{$page}.md";
 
         if (! is_dir($cacheDir)) {
@@ -41,7 +41,7 @@ final class Page
      */
     public static function clearCache()
     {
-        $cacheDir = "{$_SERVER['HOME']}/.tldr";
+        $cacheDir = self::getCacheDir();
         $statusCode = 1;
 
         if (is_dir($cacheDir)) {
@@ -49,6 +49,28 @@ final class Page
         }
 
         return $statusCode;
+    }
+
+    /**
+     * Updates the local pages
+     */
+    public static function update()
+    {
+        $cacheDir = self::getCacheDir();
+
+        if (! is_dir($cacheDir)) {
+            return;
+        }
+
+        $platforms = array_slice(scandir($cacheDir), 2);
+
+        foreach ($platforms as $platform) {
+            $files = array_slice(scandir("{$cacheDir}/{$platform}"), 2);
+            foreach ($files as $file) {
+                unlink("{$cacheDir}/{$platform}/{$file}");
+                Page::get($platform, $file);
+            }
+        }
     }
 
     private static function format(string $content): string
@@ -73,5 +95,10 @@ final class Page
         }
 
         return $content;
+    }
+
+    private static function getCacheDir(): string
+    {
+        return "{$_SERVER['HOME']}/.tldr";
     }
 }
