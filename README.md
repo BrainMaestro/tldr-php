@@ -7,11 +7,22 @@
 
 ## Installing
 ```sh
-composer global install brainmaestro/tldr
+composer global require brainmaestro/tldr
 ```
 
-## Notes
-- Tldr pages are cached in `$HOME/.tldr`.
+## Usage
+To see tldr pages:
+  
+- `tldr <command>` show examples for this command
+- `tldr <command> --p=<platform>` show command page for the given platform (`linux`, `osx`, `sunos`)
 
+The client caches a copy of all pages locally, in `~/.tldr`.
+There are more commands to control the local cache:
+
+- `tldr --update` download latest version of pages in your local cache
+- `tldr --clear-cache` delete the entire local cache
+
+## Related
+- [tldr-node-client](https://github.com/tldr-pages/tldr-node-client) - source of documentation and cache functionality
 ## License
 MIT © Ezinwa Okpoechi
