@@ -36,6 +36,21 @@ final class Page
         return self::format($contents);
     }
 
+    /**
+     * Clears the entire tldr cache
+     */
+    public static function clearCache()
+    {
+        $cacheDir = "{$_SERVER['HOME']}/.tldr";
+        $statusCode = 1;
+
+        if (is_dir($cacheDir)) {
+            passthru("rm -r {$cacheDir}", $statusCode);
+        }
+
+        return $statusCode;
+    }
+
     private static function format(string $content): string
     {
         $rules = [

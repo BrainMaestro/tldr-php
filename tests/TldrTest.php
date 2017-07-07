@@ -3,6 +3,7 @@
 namespace BrainMaestro\Tldr\Tests;
 
 use BrainMaestro\Tldr\Commands\Tldr;
+use BrainMaestro\Tldr\Page;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -36,5 +37,29 @@ class TldrTest extends TestCase
         $this->assertNotEmpty($this->commandTester->getDisplay());
         $this->assertEquals('does-not-exist command does not exist on the common platform', trim($this->commandTester->getDisplay()));
         $this->assertEquals(1, $this->commandTester->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
+    public function it_clears_the_entire_local_cache()
+    {
+        Page::get('common', 'tar');
+        $this->commandTester->execute(['--clear-cache' => true]);
+
+        $this->assertEmpty($this->commandTester->getDisplay());
+        $this->assertEquals(0, $this->commandTester->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
+    public function it_fails_if_there_is_no_cache_to_clear()
+    {
+        Page::clearCache();
+        $this->commandTester->execute(['--clear-cache' => true]);
+
+        $this->assertEmpty($this->commandTester->getDisplay());
+        $this->assertNotEquals(0, $this->commandTester->getStatusCode());
     }
 }

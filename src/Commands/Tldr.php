@@ -19,7 +19,7 @@ class Tldr extends Command
             ->setHelp('This command allows you to show simple man pages for commands')
             ->addArgument(
                 'page',
-                InputArgument::REQUIRED,
+                InputArgument::OPTIONAL,
                 'Requested tldr page'
             )
             ->addOption(
@@ -29,6 +29,12 @@ class Tldr extends Command
                 'Platform of the command',
                 'common'
             )
+            ->addOption(
+                'clear-cache',
+                'c',
+                InputOption::VALUE_NONE,
+                'Clear the entire local cache'
+            )
         ;
     }
 
@@ -36,6 +42,10 @@ class Tldr extends Command
     {
         $platform = $input->getOption('platform');
         $page = $input->getArgument('page');
+
+        if ($input->getOption('clear-cache')) {
+            return Page::clearCache();
+        }
 
         $pageContent = Page::get($platform, $page);
 

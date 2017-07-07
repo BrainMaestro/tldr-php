@@ -29,4 +29,17 @@ class PageTest extends TestCase
     {
         $this->assertEmpty(Page::get('common', 'does-not-exist'));
     }
+
+    /**
+     * @test
+     */
+    public function it_deletes_the_entire_local_cache()
+    {
+        $path = "{$_SERVER['HOME']}/.tldr/common/tar.md";
+        Page::get('common', 'tar');
+
+        $this->assertTrue(file_exists($path));
+        $this->assertEquals(0, Page::clearCache());
+        $this->assertFalse(file_exists($path));
+    }
 }
