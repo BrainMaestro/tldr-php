@@ -38,6 +38,12 @@ class Tldr extends Command
         $page = $input->getArgument('page');
 
         $pageContent = Page::get($platform, $page);
+
+        if (! $pageContent) {
+            $output->writeln("<error>{$page} command does not exist on the {$platform} platform</error>");
+            return 1;
+        }
+
         $output->writeln($pageContent);
     }
 }

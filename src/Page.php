@@ -23,7 +23,11 @@ final class Page
         }
 
         if (! file_exists($pageFile)) {
-            $contents = file_get_contents(self::BASE_URL . "{$platform}/{$page}.md");
+            $contents = @file_get_contents(self::BASE_URL . "{$platform}/{$page}.md");
+            if (! $contents) {
+                return '';
+            }
+
             file_put_contents($pageFile, $contents);
         } else {
             $contents = file_get_contents($pageFile);

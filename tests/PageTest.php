@@ -21,4 +21,12 @@ class PageTest extends TestCase
         $this->assertNotEmpty(Page::get('common', 'tar'));
         $this->assertTrue(file_exists($path));
     }
+
+    /**
+     * @test
+     */
+    public function it_returns_an_empty_result_for_a_tldr_page_that_does_not_exist_online()
+    {
+        $this->assertEmpty(Page::get('common', 'does-not-exist'));
+    }
 }
