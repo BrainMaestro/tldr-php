@@ -74,4 +74,15 @@ class TldrTest extends TestCase
         $this->assertEmpty($this->commandTester->getDisplay());
         $this->assertNotEquals(0, $this->commandTester->getStatusCode());
     }
+
+    /**
+     * @test
+     */
+    public function it_gets_a_tldr_page_that_has_a_mid_sentence_dash_character()
+    {
+        $this->commandTester->execute(['page' => 'curl']);
+
+        $this->assertNotEmpty($this->commandTester->getDisplay());
+        $this->assertEquals(0, $this->commandTester->getStatusCode());
+    }
 }
