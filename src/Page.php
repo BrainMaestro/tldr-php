@@ -77,17 +77,19 @@ final class Page
     {
         $rules = [
             // delete title of page that starts with #
-            '/# (.+)\n\n/' => '',
+            '/^# .*\n\n/' => '',
             // remove '>' from short description
-            '/> (.+)/' => '$1',
+            '/^> (.+)/m' => '$1',
             // remove extra newline
-            '/:\n/' => ':',
+            '/:\n$/m' => ':',
             // color example command usage description
             '/^(- .+)/m' => '<info>$1</info>',
-            // remove braces
-            '/{{(.+?)}}/' => '$1',
             // color all text in example command usage
-            '/`(.+)`/' => '<fg=cyan>  $1</>',
+            '/^`(.+)`$/m' => '<fg=cyan>  $1</>',
+            // color all other backticked text
+            '/`(.+)`/m' => '<fg=yellow>$1</>',
+            // remove coloring from content between braces
+            '/{{(.+?)}}/' => '</>$1</>',
         ];
 
         foreach ($rules as $pattern => $replacement) {
