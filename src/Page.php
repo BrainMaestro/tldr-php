@@ -83,7 +83,7 @@ final class Page
             // remove extra newline
             '/:\n/' => ':',
             // color example command usage description
-            '/(- .+)/' => '<info>$1</info>',
+            '/^(- .+)/m' => '<info>$1</info>',
             // remove braces
             '/{{(.+?)}}/' => '$1',
             // color all text in example command usage
