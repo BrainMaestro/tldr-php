@@ -77,8 +77,9 @@ class TldrTest extends TestCase
 
     /**
      * @test
+     * See: https://github.com/BrainMaestro/tldr-php/issues/1
      */
-    public function it_gets_a_tldr_page_that_has_a_mid_sentence_dash_character()
+    public function it_gets_a_tldr_page_that_has_a_mid_sentence_dash_character_without_failing()
     {
         $this->commandTester->execute(['page' => 'curl']);
 
