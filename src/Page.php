@@ -84,10 +84,12 @@ final class Page
             '/:\n$/m' => ':',
             // color example command usage description
             '/^(- .+)/m' => '<info>$1</info>',
-            // remove braces
-            '/{{(.+?)}}/' => '$1',
             // color all text in example command usage
             '/^`(.+)`$/m' => '<fg=cyan>  $1</>',
+            // color all other backticked text
+            '/`(.+)`/m' => '<fg=yellow>$1</>',
+            // remove coloring from content between braces
+            '/{{(.+?)}}/' => '</>$1</>',
         ];
 
         foreach ($rules as $pattern => $replacement) {
