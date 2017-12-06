@@ -101,6 +101,6 @@ final class Page
 
     private static function getCacheDir(): string
     {
-        return "{$_SERVER['HOME']}/.tldr";
+        return "{$_SERVER['HOME']}/.tldr/pages";
     }
 }
