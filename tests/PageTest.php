@@ -12,7 +12,7 @@ class PageTest extends TestCase
      */
     public function it_gets_a_tldr_page_that_does_not_exist_locally_and_saves_it()
     {
-        $path = "{$_SERVER['HOME']}/.tldr/common/tar.md";
+        $path = "{$_SERVER['HOME']}/.tldr/pages/common/tar.md";
         if (file_exists($path)) {
             unlink($path);
         }
@@ -35,7 +35,7 @@ class PageTest extends TestCase
      */
     public function it_deletes_the_entire_local_cache()
     {
-        $path = "{$_SERVER['HOME']}/.tldr/common/tar.md";
+        $path = "{$_SERVER['HOME']}/.tldr/pages/common/tar.md";
         Page::get('common', 'tar');
 
         $this->assertTrue(file_exists($path));

@@ -15,7 +15,7 @@ final class Page
      */
     public static function get(string $platform, string $page): string
     {
-        $cacheDir = self::getCacheDir() . '/' . $platform;
+        $cacheDir = self::getCacheDir('/pages') . '/' . $platform;
         $pageFile = "{$cacheDir}/{$page}.md";
 
         if (! is_dir($cacheDir)) {
@@ -56,7 +56,7 @@ final class Page
      */
     public static function update()
     {
-        $cacheDir = self::getCacheDir();
+        $cacheDir = self::getCacheDir('/pages');
 
         if (! is_dir($cacheDir)) {
             return;
@@ -99,8 +99,8 @@ final class Page
         return $content;
     }
 
-    private static function getCacheDir(): string
+    private static function getCacheDir(string $subDir = ''): string
     {
-        return "{$_SERVER['HOME']}/.tldr";
+        return "{$_SERVER['HOME']}/.tldr".$subDir;
     }
 }
