@@ -1,9 +1,11 @@
 FROM composer:1.5
 
-COPY ./composer.json ./composer.lock /app/
+COPY ./composer.json ./composer.lock /vendor/
+
+WORKDIR /vendor
 
 RUN composer install
 
-COPY . /app
+WORKDIR /app
 
-RUN ./vendor/bin/phpunit
+ENTRYPOINT ["./docker-entrypoint.sh"]
