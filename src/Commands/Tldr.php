@@ -59,7 +59,7 @@ class Tldr extends Command
         }
 
         if (! $page) {
-            $output->writeln("<error>You must provide a command</error>");
+            $output->writeln($this->getHelpText());
             return 1;
         }
 
@@ -71,5 +71,17 @@ class Tldr extends Command
         }
 
         $output->writeln($pageContent);
+    }
+
+    private function getHelpText()
+    {
+        return <<<TXT
+  <info>Usage: tldr command [options]</info>
+    
+  Options:
+    -p, --platform [type]     platform of the command
+    -u, --update              update the local page cache
+    -c, --clear-cache         clear the local page cache
+TXT;
     }
 }
