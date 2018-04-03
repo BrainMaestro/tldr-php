@@ -9,6 +9,9 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class TldrTest extends TestCase
 {
+    /**
+     * @var CommandTester
+     */
     private $commandTester;
 
     public function setUp()
@@ -47,7 +50,16 @@ class TldrTest extends TestCase
         $this->commandTester->execute([]);
 
         $this->assertNotEmpty($this->commandTester->getDisplay());
-        $this->assertEquals('You must provide a command', trim($this->commandTester->getDisplay()));
+        $this->assertEquals(<<<TXT
+  Usage: tldr command [options]
+    
+  Options:
+    -p, --platform [type]     platform of the command
+    -u, --update              update the local page cache
+    -c, --clear-cache         clear the local page cache
+
+TXT
+            , $this->commandTester->getDisplay());
         $this->assertEquals(1, $this->commandTester->getStatusCode());
     }
 
