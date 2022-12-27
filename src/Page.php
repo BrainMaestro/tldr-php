@@ -4,7 +4,7 @@ namespace BrainMaestro\Tldr;
 
 final class Page
 {
-    const BASE_URL = 'https://raw.githubusercontent.com/tldr-pages/tldr/master/pages/';
+    const BASE_URL = 'https://raw.githubusercontent.com/tldr-pages/tldr/main/pages/';
 
     /**
      * Get the page for the platform in the local cache or download it if it does not exist
